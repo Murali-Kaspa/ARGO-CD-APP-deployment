@@ -8,27 +8,27 @@
     <version>2.246</version>
     <packaging>war</packaging>
 
-	<properties>
-		<docker.image.prefix>kammana</docker.image.prefix>
-		<sonar.host.url>http://52.66.176.166:9000//</sonar.host.url>
+    <properties>
+        <docker.image.prefix>kammana</docker.image.prefix>
+        <sonar.host.url>http://52.66.176.166:9000//</sonar.host.url>
+        <dependency-check.version>9.2.0</dependency-check.version>
+    </properties>
 
-	</properties>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>NexusRepo</id>
+            <url>http://100.25.155.112:8081/repository/mc-snapshot/</url>
+        </snapshotRepository>
 
-	<distributionManagement>
-		 <snapshotRepository>
-		    <id>NexusRepo</id>
-		    <url>http://100.25.155.112:8081/repository/mc-snapshot/</url>
-		 </snapshotRepository>
-		
-		<repository>
-		    <id>NexusRepo</id>
-		    <url>http://ec2-3-87-3-6.compute-1.amazonaws.com:8081/repository/mc-artifacts/</url>
-		</repository>
-  	</distributionManagement>
+        <repository>
+            <id>NexusRepo</id>
+            <url>http://ec2-3-87-3-6.compute-1.amazonaws.com:8081/repository/mc-artifacts/</url>
+        </repository>
+    </distributionManagement>
 
-    
     <build>
         <plugins>
+            <!-- WAR packaging -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
@@ -37,7 +37,25 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
+
+            <!-- ✅ OWASP Dependency Check Plugin -->
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>${dependency-check.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <format>HTML</format>
+                    <outputDirectory>${project.build.directory}/dependency-check-report</outputDirectory>
+                    <failBuildOnCVSS>7</failBuildOnCVSS>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
-
