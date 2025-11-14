@@ -19,7 +19,7 @@ pipeline {
         stage('Clone Git Repo') {
             steps {
                 git branch: 'main',
-                    credentialsId: 'git-creds',
+                    credentialsId: 'Git-Creds',
                     url: 'https://github.com/Murali-Kaspa/CICD-Using-Argo-CD-EKS.git'
             }
         }
@@ -78,7 +78,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    withDockerRegistry(credentialsId: 'docker-creds') {
+                    withDockerRegistry(credentialsId: 'Docker-Creds') {
                         sh 'docker push muralikaspa1998/myimage:$IMAGE_TAG'
                     }
                 }
@@ -93,7 +93,7 @@ pipeline {
             steps {
                 echo 'Update Deployment File'
                 withCredentials([
-                    string(credentialsId: 'git-creds', variable: 'githubtoken')
+                    string(credentialsId: 'Git-Creds', variable: 'githubtoken')
                 ]) {
                     sh '''
                         git config user.email "murali.kaspa26@gmail.com"
