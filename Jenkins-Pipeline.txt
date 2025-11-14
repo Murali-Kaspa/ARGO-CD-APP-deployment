@@ -60,6 +60,8 @@ pipeline {
             steps {
                 sh '''
                     sudo yum remove trivy -y
+#If this stage failed, Please add jenkins users in sudoers path : jenkins ALL=(ALL) NOPASSWD: ALL in /etc/sudoers directory 
+
                     rm -rf *.zip
                     wget https://github.com/aquasecurity/trivy/releases/download/v0.64.1/trivy_0.64.1_Linux-64bit.rpm
                     sudo rpm -ivh trivy_0.64.1_Linux-64bit.rpm
