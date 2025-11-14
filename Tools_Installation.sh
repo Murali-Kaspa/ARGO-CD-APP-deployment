@@ -9,7 +9,7 @@ sudo systemctl enable docker
 sudo usermod -aG docker $USER
 sudo service docker restart
 sleep 5
-docker run -itd --name sonarimage -p 9000:9000 sonarqube:lts-community
+sudo docker run -itd --name sonarimage -p 9000:9000 sonarqube:lts-community
 
 
 
