@@ -80,6 +80,7 @@ pipeline {
         stage('Trivy Gate') {
             steps {
                 sh 'trivy image --exit-code 1 --severity CRITICAL,HIGH muralikaspa1998/myimage:$IMAGE_TAG'
+                sh "trivy fs . > trivyfs.txt"
             }
         }
 
