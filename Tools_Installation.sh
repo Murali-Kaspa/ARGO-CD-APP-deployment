@@ -26,7 +26,11 @@ sudo usermod -aG docker ec2-user
 echo "JENKINS PASSSWORD"
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 
+#TRIVY TOOL
 
+wget https://github.com/aquasecurity/trivy/releases/download/v0.64.1/trivy_0.64.1_Linux-64bit.rpm
+sudo rpm -ivh trivy_0.64.1_Linux-64bit.rpm
+trivy --version
 
 #Install AWS CLI v2
 sudo apt update
