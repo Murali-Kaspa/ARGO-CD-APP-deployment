@@ -20,7 +20,7 @@ pipeline {
             steps {
                 git branch: 'main',
                     credentialsId: 'Git-Creds',
-                    url: 'https://github.com/Murali-Kaspa/CICD-Using-Argo-CD-EKS.git'
+                    url: 'https://github.com/Murali-Kaspa/ARGO-CD-APP-deployment.git'
             }
         }
 
@@ -96,7 +96,7 @@ pipeline {
 
         stage('Update Deployment File') {
             environment {
-                GIT_REPO_NAME = "CICD-Using-Argo-CD-EKS"
+                GIT_REPO_NAME = "ARGO-CD-APP-deployment"
                 GIT_USER_NAME = "Murali-Kaspa"
             }
             steps {
